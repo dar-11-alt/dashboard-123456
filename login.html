@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VP Office Login</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #002366, #0059b3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-box {
+      background: white;
+      width: 380px;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+
+    .login-box h2 {
+      margin-bottom: 25px;
+      color: #002366;
+    }
+
+    input {
+      width: 90%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+    .password-box {
+      position: relative;
+      width: 100%;
+    }
+
+    .password-box input {
+      width: 90%;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 14px;
+      color: black;
+      font-weight: bold;
+      font-size: medium;
+    }
+
+    button {
+      width: 95%;
+      padding: 12px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 10px;
+      background: gold;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: orange;
+    }
+
+    .note {
+      margin-top: 15px;
+      font-size: 13px;
+      color: gray;
+    }
+
+    .logo {
+      width: 110px;
+      height: 110px;
+      display: block;
+      margin: 0 auto 15px auto;
+      border-radius: 200px;
+      object-fit: cover;
+      margin-bottom: 0px;
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 3)    
+    }
+
+    .remember-box {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  margin: 10px 0;
+  padding-left: 10px;
+  font-size: 14px;
+  color: #002366;
+}
+
+.remember-box input {
+  width: auto;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+  </style>
+</head>
+
+<body>
+
+  <div class="login-box">
+
+    <!-- Logo -->
+    <img src="IMG/BIPSU.jpg" class="logo">
+
+    <h2>Office of the Vice President for Academic Affairs and Lifelong Learning</h2>
+
+    <!-- Username -->
+    <input type="text" id="username" placeholder="Enter Username">
+
+    <!-- Password with Eye Toggle -->
+    <div class="password-box">
+      <input type="password" id="password" placeholder="Enter Password">
+      <span class="toggle-password" onclick="togglePassword()">👁</span>
+    </div>
+
+    <div class="remember-box">
+      <input type="checkbox" id="rememberMe">
+      <label for="rememberMe">Remember Me</label>
+    </div>
+
+    <!-- Login Button -->
+    <button onclick="login()">Login</button>
+
+    <p class="note">
+      Office of the Vice President for Academic Affairs and Lifelong Learning
+    </p>
+
+  </div>
+
+  <script>
+    
+    document.getElementById("username").addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        document.getElementById("password").focus();
+      }
+    });
+
+    document.getElementById("password").addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        login();
+      }
+    });
+
+    document.getElementById("password").addEventListener("keydown", function(event) {
+      if (event.key === "backspaec") {
+        login();
+      }
+    });
+
+    // ✅ Show / Hide Password
+    function togglePassword() {
+      let passField = document.getElementById("password");
+
+      if (passField.type === "password") {
+        passField.type = "text";
+      } else {
+        passField.type = "password";
+      }
+    }
+
+    // ✅ Login Function
+    function login() {
+      let user = document.getElementById("username").value.trim();
+      let pass = document.getElementById("password").value;
+      let remember = document.getElementById("rememberMe").checked;
+
+      if (user === "vpadmin" && pass === "vp123") {
+        if (remember) localStorage.setItem("savedUsername", user);
+        else localStorage.removeItem("savedUsername");
+        sessionStorage.setItem("currentUser", "vpadmin");
+        sessionStorage.setItem("userRole", "admin");
+        window.location.href = "index.html";
+
+      } else if (user === "staff" && pass === "staff123") {
+        if (remember) localStorage.setItem("savedUsername", user);
+        else localStorage.removeItem("savedUsername");
+        sessionStorage.setItem("currentUser", "staff");
+        sessionStorage.setItem("userRole", "staff");
+        window.location.href = "staff-input.html";
+
+      } else {
+        alert("Invalid Username or Password!");
+      }
+    }
+  </script>
+
+</body>
+</html>

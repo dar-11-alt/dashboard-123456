@@ -1,0 +1,33 @@
+const SCHOOL_SHEETS = {
+  "2025-2026": {
+    "1": {
+      STCS: "https://docs.google.com/spreadsheets/d/11gjcIp-8IoBPi-lguYQq2ylIJnEoIioxLo3KOcshiEE/edit?fbclid=IwY2xjawQSGnBleHRuA2FlbQIxMABicmlkETJwSjB2aDJTaFk5RThYa1BXc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHvUEoBtYsgq4fqaVv4-0T_Dd7YM37bFvhrvDEaxY-rweZD8z_egzjqcE-5JO_aem_YARu_W6afRc2cGwnec8PXw&hl=en_US&gid=525745083#gid=525745083",
+      eng: "https://docs.google.com/spreadsheets/d/11gjcIp-8IoBPi-lguYQq2ylIJnEoIioxLo3KOcshiEE/edit?fbclid=IwY2xjawQSGnBleHRuA2FlbQIxMABicmlkETJwSjB2aDJTaFk5RThYa1BXc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHvUEoBtYsgq4fqaVv4-0T_Dd7YM37bFvhrvDEaxY-rweZD8z_egzjqcE-5JO_aem_YARu_W6afRc2cGwnec8PXw&hl=en_US&gid=1660857952#gid=1660857952",
+      SME: "https://docs.google.com/spreadsheets/d/11gjcIp-8IoBPi-lguYQq2ylIJnEoIioxLo3KOcshiEE/edit?fbclid=IwY2xjawQSGnBleHRuA2FlbQIxMABicmlkETJwSjB2aDJTaFk5RThYa1BXc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHvUEoBtYsgq4fqaVv4-0T_Dd7YM37bFvhrvDEaxY-rweZD8z_egzjqcE-5JO_aem_YARu_W6afRc2cGwnec8PXw&hl=en_US&gid=277440426#gid=277440426",
+      SNHS: "https://docs.google.com/spreadsheets/d/11gjcIp-8IoBPi-lguYQq2ylIJnEoIioxLo3KOcshiEE/edit?fbclid=IwY2xjawQSGnBleHRuA2FlbQIxMABicmlkETJwSjB2aDJTaFk5RThYa1BXc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHvUEoBtYsgq4fqaVv4-0T_Dd7YM37bFvhrvDEaxY-rweZD8z_egzjqcE-5JO_aem_YARu_W6afRc2cGwnec8PXw&hl=en_US&gid=657306020#gid=657306020",
+      SCJE: "LINK_SCJE_SEM1",
+      SAS: "https://docs.google.com/spreadsheets/d/11gjcIp-8IoBPi-lguYQq2ylIJnEoIioxLo3KOcshiEE/edit?usp=sharinghttps://docs.google.com/spreadsheets/d/11gjcIp-8IoBPi-lguYQq2ylIJnEoIioxLo3KOcshiEE/edit?fbclid=IwY2xjawQSGnBleHRuA2FlbQIxMABicmlkETJwSjB2aDJTaFk5RThYa1BXc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHvUEoBtYsgq4fqaVv4-0T_Dd7YM37bFvhrvDEaxY-rweZD8z_egzjqcE-5JO_aem_YARu_W6afRc2cGwnec8PXw&hl=en_US&gid=1183288341#gid=1183288341",
+      STED: "https://docs.google.com/spreadsheets/d/11gjcIp-8IoBPi-lguYQq2ylIJnEoIioxLo3KOcshiEE/edit?fbclid=IwY2xjawQSGnBleHRuA2FlbQIxMABicmlkETJwSjB2aDJTaFk5RThYa1BXc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHvUEoBtYsgq4fqaVv4-0T_Dd7YM37bFvhrvDEaxY-rweZD8z_egzjqcE-5JO_aem_YARu_W6afRc2cGwnec8PXw&hl=en_US&gid=619850109#gid=619850109",
+      MARITIME: "https://docs.google.com/spreadsheets/d/11gjcIp-8IoBPi-lguYQq2ylIJnEoIioxLo3KOcshiEE/edit?fbclid=IwY2xjawQSGnBleHRuA2FlbQIxMABicmlkETJwSjB2aDJTaFk5RThYa1BXc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHvUEoBtYsgq4fqaVv4-0T_Dd7YM37bFvhrvDEaxY-rweZD8z_egzjqcE-5JO_aem_YARu_W6afRc2cGwnec8PXw&hl=en_US&gid=845836904#gid=845836904"
+
+    },
+    "2": {
+      stcs: "LINK_STCS_SEM2",
+      eng: "LINK_ENG_SEM2",
+      sme: "LINK_SME_SEM2"
+    }
+  }
+};
+alert(1);
+function openSchoolSheet(schoolKey) {
+    const { year, sem } = getSelectedFilter();
+
+    const link = SCHOOL_SHEETS?.[year]?.[sem]?.[schoolKey];
+
+    if (!link) {
+        alert("No sheet available for this selection");
+        return;
+    }
+
+    window.open(link, "_blank");
+}
