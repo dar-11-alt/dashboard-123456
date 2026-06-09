@@ -431,7 +431,6 @@
       window.location.href = 'login.html';
     }
 
-    const API = '/api/dashboard-data';
 
     const FIELDS = [
       'totalFaculty', 'maleFaculty', 'femaleFaculty',
@@ -535,6 +534,9 @@
 
     loadData();
   </script>
+
+<script type="module" src="firebase-config.js"></script>
+<script type="module" src="staff-firebase.js"></script>
 
 </body>
 </html>
