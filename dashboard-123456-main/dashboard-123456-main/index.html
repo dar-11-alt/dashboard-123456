@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VP Academic Affairs Monitoring Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    if (sessionStorage.getItem('userRole') !== 'admin') {
+      window.location.href = 'login.html';
+    }
+  </script>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+  <img src="IMG/PROFILE.jpg" class="logo-c" >
+  <h2>Dr. Erwin G. Salvatierra </h2>
+  <p class="subtitle">Vice President for Student and External Office</p>
+  
+  <div class="menu-box" onclick="showSection('dashboard')">
+    <a href="#">DASHBOARD</a>
+  </div>
+
+  <div class="menu-box" onclick="showSection('schools')">
+    <a href="#">SCHOOLS</a>
+  </div>
+
+  <div class="menu-box"onclick="showSection('offices')">
+    <a href="#">OFFICES</a>
+  </div>
+
+  <div class="menu-box logout">
+    <a href="logout.html">LOGOUT</a>
+  </div>
+</div>
+
+  <!-- Main Content -->
+  <div class="main">
+
+    <!-- Header -->
+    <div class="header">
+      <h1>Office of the Vice President for Academic Affairs and Lifelong Learning </h1>
+      <img src="IMG/BIPSU.jpg" class="logo-a" style="align-self: last baseline stretch;">
+    </div>
+
+    <div class="top-controls">
+    <label>SY:</label>
+    <select id="schoolYearSelect" onchange="handleGlobalChange()">
+      <option value="2023-2024">2023-2024</option>
+      <option value="2024-2025">2024-2025</option>
+      <option value="2025-2026">2025-2026</option>
+      <option value="2026-2027">2026-2027</option>
+    </select>
+
+    <label>Sem:</label>
+    <select id="semesterSelect" onchange="handleGlobalChange()">
+      <option value="1">1st</option>
+      <option value="2">2nd</option>
+    </select>
+  </div>
+
+    <!-- Dashboard Section -->
+    <!-- Analytics Report Section -->
+<section id="dashboard" class="content-section active">
+
+  
+
+  <div class="summary-box">
+  <h3>👨‍🏫 School Monitoring Summary</h3>
+
+  <div class="analytics-grid">
+
+        <!-- Faculty Monitoring Summary -->
+  <div class="faculty-item expandable " onclick="toggleLock(this)">
+    <div class="stat-row  highlight " >
+        <span>Total Schools</span>
+        <span id="totalSchools">0</span>
+
+    </div>
+
+
+    <div class="faculty-details">
+        <div class="stat-row hh">
+            <span>School of Technologies and Computer Studies</span>
+            <span id="">
+              <img src="IMG/STCS.jpg" alt="Faculty Logo" class="logo-d">
+            </span>
+        </div>
+        <div class="stat-row hh">
+            <span>School of Engineering</span>
+            <span id="">
+              <img src="IMG/ENG.jpg" alt="Faculty Logo" class="logo-d">
+            </span>
+        </div>
+        <div class="stat-row hh">
+            <span>School of Teachers Education</span>
+            <span id="">
+              <img src="IMG/" alt="Faculty Logo" class="logo-d">
+            </span>
+        </div>
+        <div class="stat-row hh">
+            <span>School of Arts and Sciences</span>
+            <span id="">
+              <img src="IMG/SAS.jpg" alt="Faculty Logo" class="logo-d">
+            </span>
+        </div>
+        <div class="stat-row hh">
+            <span>School of Criminal and Justice Education</span>
+            <span id="">
+              <img src="IMG/SCJE.jpg" alt="Faculty Logo" class="logo-d">
+            </span>
+        </div>
+        <div class="stat-row hh">
+            <span>School of Management and Enterprenuership</span>
+            <span id="">
+              <img src="IMG/SME.jpg" alt="Faculty Logo" class="logo-d">
+            </span>
+        </div>
+        <div class="stat-row hh">
+            <span>School of Nursing and Healtk Sciences</span>
+            <span id="">
+              <img src="IMG.jpg" alt="Faculty Logo" class="logo-d">
+            </span>
+        </div>
+       
+    </div>
+</div>
+
+  <div class="faculty-item expandable" onclick="toggleLock(this)">
+    
+    <div class="stat-row highlight">
+        <span>Total Number of Faculty</span>
+        <span id="totalFaculty">0</span>
+    </div>
+  
+    <div class="faculty-details scrollable">
+        <div class="stat-row">
+            <span>Male Faculty</span>
+            <span id="maleFacultyCount">0</span>
+        </div>
+
+        <div class="stat-row">
+            <span>Female Faculty</span>
+            <span id="femaleFacultyCount">0</span>
+        </div>
+
+    <div class="stat-row high">
+      <span> Faculty Status</span>
+    </div>
+    <div class="stat-row sats">
+        <span>Part-Time Contract</span>
+        <span id="facultyParttime">0</span>
+    </div>
+
+    <div class="stat-row"> 
+        <span>Male</span>
+        <span id="parttimeMale">0</span>
+    </div>
+
+    <div class="stat-row"> 
+        <span>Female</span>
+        <span id="parttimeFemale">0</span>
+    </div>
+
+
+    <div class="stat-row sats">
+        <span>Part-Timers with Mother Agency</span>
+        <span id="facultyParttime">0</span>
+    </div>
+
+    <div class="stat-row"> 
+        <span>Male</span>
+        <span id="PartimeMale">0</span>
+    </div>
+
+    <div class="stat-row"> 
+        <span>Female</span>
+        <span id="PartimeFemale">0</span>
+    </div>
+
+    <div class="stat-row sats">
+        <span>Regular </span>
+        <span id="facultyRegular">0</span>
+    </div>
+
+    <div class="stat-row"> 
+        <span>Male</span>
+        <span id="RegularMale">0</span>
+    </div>
+
+    <div class="stat-row"> 
+        <span>Female</span>
+        <span id="RegularFemale">0</span>
+    </div>
+
+    </div>
+  </div>
+
+
+
+
+<div class="faculty-item expandable" onclick="toggleLock(this)">
+    <div class="stat-row highlight">
+        <span>Faculty on Leave</span>
+        <span id="facultyLeave">0</span>
+    </div>
+
+    <div class="faculty-details">
+        <div class="stat-row hh">
+            <span>School of Technologies and Computer Studies</span>
+            <span id="stcsOnleave">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Male</span>
+          <span id="stcsMale">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Female</span>
+          <span id="stcsFemale">0</span>
+        </div>
+
+        <div class="stat-row hh">
+            <span>School of Engineering</span>
+            <span id="engStudents">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Male</span>
+          <span id="engMale">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Female</span>
+          <span id="engFemale">0</span>
+        </div>
+        
+        <div class="stat-row hh">
+            <span>School of Teachers Education</span>
+            <span id="stedStudents">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Male</span>
+          <span id="stedMale">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Female</span>
+          <span id="stedFemale">0</span>
+        </div>
+
+        <div class="stat-row hh">
+            <span>School of Arts and Sciences</span>
+            <span id="sasStudents">  0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Male</span>
+          <span id="sasMale">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Female</span>
+          <span id="sasFemale">0</span>
+        </div>
+
+        <div class="stat-row hh">
+            <span>School of Criminal and Justice Education</span>
+            <span id="scjeStudents">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Male</span>
+          <span id="scjeMale">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Female</span>
+          <span id="scjeFemale">0</span>
+        </div>
+
+        <div class="stat-row hh">
+            <span>School of Management and Enterprenuership</span>
+            <span id="smeStudents">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Male</span>
+          <span id="smeMale">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Female</span>
+          <span id="smeFemale">0</span>
+        </div>
+
+        <div class="stat-row hh">
+            <span>School of Nursing and Health Sciences</span>
+            <span id="snsStudents">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Male</span>
+          <span id="snsMale">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Female</span>
+          <span id="snsFemale">0</span>
+        </div>
+
+      </div>
+</div>
+
+    <div class="faculty-item expandable" onclick="toggleLock(this)">
+        <div class="stat-row highlight">
+            <span>Total Number of Students</span>
+            <span id="totalStudentsCount">0</span>
+        </div>
+
+      <div class="faculty-details">
+        <div class="stat-row hh">
+            <span>School of Technologies and Computer Studies</span>
+            <span id="stcsStudents">  0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Male</span>
+          <span id="stcsMale">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Female</span>
+          <span id="stcsFemale">0</span>
+        </div>
+
+        <div class="stat-row hh">
+            <span>School of Engineering</span>
+            <span id="engStudents">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Male</span>
+          <span id="engMale">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Female</span>
+          <span id="engFemale">0</span>
+        </div>
+        
+        <div class="stat-row hh">
+            <span>School of Teachers Education</span>
+            <span id="stedStudents">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Male</span>
+          <span id="stedMale">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Female</span>
+          <span id="stedFemale">0</span>
+        </div>
+
+        <div class="stat-row hh">
+            <span>School of Arts and Sciences</span>
+            <span id="sasStudents">  0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Male</span>
+          <span id="sasMale">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Female</span>
+          <span id="sasFemale">0</span>
+        </div>
+
+        <div class="stat-row hh">
+            <span>School of Criminal and Justice Education</span>
+            <span id="scjeStudents">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Male</span>
+          <span id="scjeMale">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Female</span>
+          <span id="scjeFemale">0</span>
+        </div>
+
+        <div class="stat-row hh">
+            <span>School of Management and Enterprenuership</span>
+            <span id="smeStudents">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Male</span>
+          <span id="smeMale">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Female</span>
+          <span id="smeFemale">0</span>
+        </div>
+
+        <div class="stat-row hh">
+            <span>School of Nursing and Health Sciences</span>
+            <span id="snsStudents">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Male</span>
+          <span id="snsMale">0</span>
+        </div>
+
+        <div class="stat-row"> 
+          <span>Female</span>
+          <span id="snsFemale">0</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="faculty-item expandable" onclick="toggleLock(this)">
+      <div class="stat-row highlight">
+          <span>Total Number of Classrooms</span>
+          <span id="totalClassroomsCount">0</span>
+      </div>
+
+    <div class="faculty-details">
+        <div class="stat-row hh">
+            <span>School of Technologies and Computer Studies</span>
+            <span id="stcsStudents">  0</span>
+        </div>
+
+        <div class="stat-row hh">
+            <span>School of Engineering</span>
+            <span id="engClassroom">  0</span>
+        </div>
+
+        <div class="stat-row hh">
+            <span>School of Teachers Education</span>
+            <span id="stedClassroom">  0</span>
+        </div>
+
+        <div class="stat-row hh">
+            <span>School of Arts and Sciences</span>
+            <span id="sasClassroom">  0</span>
+        </div>
+
+        <div class="stat-row hh">
+            <span>School of Criminal and Justice Education</span>
+            <span id="scjeClassroom">  0</span>
+        </div>
+
+        <div class="stat-row hh">
+            <span>School of Management and Entrepreneurship</span>
+            <span id="smeClassroom">  0</span>
+        </div>
+
+        <div class="stat-row hh">
+            <span>School of Nursing and Health Sciences</span>
+            <span id="snhsClassroom">  0</span>
+        </div>
+
+    </div>
+  </div>
+
+    <div class="faculty-item expandable" onclick="toggleLock(this)">
+      <div class="stat-row highlight">
+          <span>Total Number of Classes</span>
+          <span id="totalClassesCount">0</span>
+    </div>
+
+    <div class="faculty-details">
+        <div class="stat-row hh">
+            <span>School of Technologies and Computer Studies</span>
+            <span id="stcsStudents">  0</span>
+        </div>
+
+        <div class="stat-row hh">
+            <span>School of Engineering</span>
+            <span id="engClassroom">  0</span>
+        </div>
+
+        <div class="stat-row hh">
+            <span>School of Teachers Education</span>
+            <span id="stedClassroom">  0</span>
+        </div>
+
+        <div class="stat-row hh">
+            <span>School of Arts and Sciences</span>
+            <span id="sasClassroom">  0</span>
+        </div>
+
+        <div class="stat-row hh">
+            <span>School of Criminal and Justice Education</span>
+            <span id="scjeClassroom">  0</span>
+        </div>
+
+        <div class="stat-row hh">
+            <span>School of Management and Entrepreneurship</span>
+            <span id="smeClassroom">  0</span>
+        </div>
+
+        <div class="stat-row hh">
+            <span>School of Nursing and Health Sciences</span>
+            <span id="snhsClassroom">  0</span>
+        </div>
+
+    </div>
+
+    
+  </div>
+
+  
+</div>
+
+</div>
+
+<div class="summary-box">
+  <h4>🏫 Submission Summary per School</h4>
+
+  <!-- STCS -->
+  <div class="school-grid">
+
+    <!-- STCS -->
+    <div class="school-card-mini">
+      <h5>STCS</h5>
+      <table>
+        <tr><td>Grades</td><td id="stcsGrades">0</td></tr>
+        <tr><td>Syllabus</td><td id="stcsSyllabus">0</td></tr>
+        <tr><td>Test</td><td id="stcsTest">0</td></tr>
+        <tr><td>Research</td><td id="stcsResearch">0</td></tr>
+      </table>
+      <div class="total">Total: <span id="stcsTotal">0</span></div>
+    </div>
+
+    <!-- ENGINEERING -->
+    <div class="school-card-mini">
+      <h5>Engineering</h5>
+      <table>
+        <tr><td>Grades</td><td id="engGrades">0</td></tr>
+        <tr><td>Syllabus</td><td id="engSyllabus">0</td></tr>
+        <tr><td>Test</td><td id="engTest">0</td></tr>
+        <tr><td>Research</td><td id="engResearch">0</td></tr>
+      </table>
+      <div class="total">Total: <span id="engTotal">0</span></div>
+    </div>
+
+    <div class="school-card-mini">
+      <h5>School of Arts and Sciences</h5>
+      <table>
+        <tr><td>Grades</td><td id="sasGrades">0</td></tr>
+        <tr><td>Syllabus</td><td id="sasSyllabus">0</td></tr>
+        <tr><td>Test</td><td id="sasTest">0</td></tr>
+        <tr><td>Research</td><td id="sasResearch">0</td></tr>
+      </table>
+      <div class="total">Total: <span id="sasTotal">0</span></div>
+    </div>
+
+    <div class="school-card-mini">
+      <h5>School of Management and Entrepreneurship</h5>
+      <table>
+        <tr><td>Grades</td><td id="smeGrades">0</td></tr>
+        <tr><td>Syllabus</td><td id="smeSyllabus">0</td></tr>
+        <tr><td>Test</td><td id="smeTest">0</td></tr>
+        <tr><td>Research</td><td id="smeResearch">0</td></tr>
+      </table>
+      <div class="total">Total: <span id="smeTotal">0</span></div>
+    </div>
+
+    <div class="school-card-mini">
+      <h5>School of Teachers Education</h5>
+      <table>
+        <tr><td>Grades</td><td id="stedGrades">0</td></tr>
+        <tr><td>Syllabus</td><td id="stedSyllabus">0</td></tr>
+        <tr><td>Test</td><td id="stedTest">0</td></tr>
+        <tr><td>Research</td><td id="stedResearch">0</td></tr>
+      </table>
+      <div class="total">Total: <span id="stedTotal">0</span></div>
+    </div>
+
+    <div class="school-card-mini">
+      <h5>School of Criminal and Justice Education</h5>
+      <table>
+        <tr><td>Grades</td><td id="scjeGrades">0</td></tr>
+        <tr><td>Syllabus</td><td id="scjeSyllabus">0</td></tr>
+        <tr><td>Test</td><td id="scjeTest">0</td></tr>
+        <tr><td>Research</td><td id="scjeResearch">0</td></tr>
+      </table>
+      <div class="total">Total: <span id="scjeTotal">0</span></div>
+    </div>
+
+    <div class="school-card-mini">
+      <h5>School of Nursing and Health Sciences</h5>
+      <table>
+        <tr><td>Grades</td><td id="snhsGrades">0</td></tr>
+        <tr><td>Syllabus</td><td id="snhsSyllabus">0</td></tr>
+        <tr><td>Test</td><td id="snhsTest">0</td></tr>
+        <tr><td>Research</td><td id="snhsResearch">0</td></tr>
+      </table>
+      <div class="total">Total: <span id="snhsTotal">0</span></div>
+    </div>
+
+    <div class="school-card-mini">
+      <h5>School of Maritime Studies</h5>
+      <table>
+        <tr><td>Grades</td><td id="smsGrades">0</td></tr>
+        <tr><td>Syllabus</td><td id="smsSyllabus">0</td></tr>
+        <tr><td>Test</td><td id="smsTest">0</td></tr>
+        <tr><td>Research</td><td id="smsResearch">0</td></tr>
+      </table>
+      <div class="total">Total: <span id="smsTotal">0</span></div>
+    </div>
+    
+  <!-- Repeat for ALL schools -->
+</div>
+</div>
+
+<div class="summary-box">
+  <div class="analytics-box">
+  <h3>📊 Academic Analytics Report</h3>
+
+        <div class="analytics-grid">
+
+          <div class="analytics-item">
+            <h4>📌 Accomplishment Reports</h4>
+            <p><span id="Category">0</span> Submitted</p>
+          </div>
+
+          <div class="analytics-item">
+            <h4>🏛 Accreditation Status</h4>
+            <p><span id="accreditationStatus">0</span> Programs Ongoing</p>
+          </div>
+
+          <div class="analytics-item">
+            <h4>💰 Budget Proposals</h4>
+            <p><span id="budgetProposals">0</span> Approved</p>
+          </div>
+
+          <div class="analytics-item">
+            <h4>⭐ Performance Reviews</h4>
+            <p><span id="performanceReviews">0</span> Completed</p>
+          </div>
+
+          <div class="analytics-item">
+            <h4>📚 Curriculum Revision</h4>
+            <p><span id="curriculumRevision">0</span> In Progress</p>
+          </div>
+
+          <div class="analytics-item">
+            <h4>🧑‍🏫 Professional Reviews Conducted</h4>
+            <p><span id="professionalReviews">0</span> Sessions Done</p>
+          </div>
+        </div>
+  </div>
+</section>
+
+
+
+
+
+    <!-- Schools Section -->
+    <section id="schools" class="content-section">
+      <h2>Schools Monitoring</h2>
+
+      <div class="school-list">
+
+        <div class="school-card">
+          <img src="IMG/STCS.jpg" class="logo-b">
+          <h3>School of Technology and Computer Stuies</h3>
+          <button onclick="openSchoolSheet('STCS')">
+            Open Checklist Sheet
+          </button>
+        </div>
+
+        <div class="school-card">
+          <img src="IMG/SME.jpg" class="logo-b">
+          <h3>School of Management and Enteprenuership</h3>
+          <button onclick="openSchoolSheet('SME')">
+            Open Checklist Sheet
+          </button>
+        </div>
+
+        <div class="school-card">
+          <img src="IMG/ENG.jpg" class="logo-b">
+          <h3>School of Engeneering                                            
+          </h3>
+          <button onclick="openSchoolSheet('ENG')">
+            Open Checklist Sheet
+          </button>
+        </div>
+
+        <div class="school-card">
+          <img src="IMG/SCJE.jpg" class="logo-b">
+          <h3>School of Criminology</h3>
+          <button onclick="openSchoolSheet('SCJE')">
+            Open Checklist Sheet
+          </button>
+        </div>
+
+        <div class="school-card">
+          <img src="IMG/SAS.jpg" class="logo-b">
+          <h3>School of Arts and Sciences</h3>
+          <button onclick="openSchoolSheet('SAS')">
+            Open Checklist Sheet
+          </button>
+        </div>
+
+        <div class="school-card">
+          <img src="IMG/SNHS.jpg" class="logo-b">
+          <h3>School of Nursing and Health Sciences</h3>
+          <button onclick="openSchoolSheet('SNHS')">
+            Open Checklist Sheet
+          </button>
+        </div>
+      
+        <div class="school-card">
+          <img src="IMG/SME.jpg" class="logo-b">
+          <h3>School of Maritime Education</h3>
+          <button onclick="openSchoolSheet('MARITIME')">
+            Open Checklist Sheet
+          </button>
+        </div>
+      
+        <div class="school-card">
+          <img src="" class="logo-b">
+          <h3> Scool of Teachers Education</h3>
+          <button onclick="openSchoolSheet('STED')">
+              Open Checklist Sheet
+          </button>
+        
+        </div>
+      </div>
+    </section>
+
+    <!-- Offices Section -->
+    <section id="offices" class="content-section">
+      <h2>Offices Monitoring</h2>
+      <p>This section is for offices under academic affairs.</p>
+
+      <ul class="office-list">
+
+        <div class="office-card">
+          <h3>Office od Advance and Accessible Lifelong Learning</h3>
+          <button onclick="openSheet('https://docs.google.com/spreadsheets/d/1cv64h-LzoNF1Qupcfz_PgxtW5yAWEwZVF0dP0Mb4-YI/edit?usp=sharing')">
+            Open Checklist Sheet
+          </button>
+        </div>
+        
+        <div class="office-card">
+          <h3>Center for Learning Resources</h3>
+          <button onclick="openSheet('https://docs.google.com/spreadsheets/d/1cv64h-LzoNF1Qupcfz_PgxtW5yAWEwZVF0dP0Mb4-YI/edit?usp=sharing')">
+            Open Checklist Sheet
+          </button>
+        </div>
+
+        <div class="office-card">
+          <h3>Office of Teaching, Learning, and Curriculum Effectiveness</h3>
+          <button onclick="openSheet('https://docs.google.com/spreadsheets/d/1cv64h-LzoNF1Qupcfz_PgxtW5yAWEwZVF0dP0Mb4-YI/edit?usp=sharing')">
+            Open Checklist Sheet
+          </button>
+        </div>
+
+        <div class="office-card">
+          <h3>National Service Training Program</h3>
+          <button onclick="openSheet('https://docs.google.com/spreadsheets/d/1cv64h-LzoNF1Qupcfz_PgxtW5yAWEwZVF0dP0Mb4-YI/edit?usp=sharing')">
+            Open Checklist Sheet
+          </button>
+        </div>
+
+
+    </section>
+
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // Load dashboard data saved by staff from Netlify Blobs via API
+    async function loadApiData() {
+      try {
+        const res = await fetch('/api/dashboard-data');
+        if (!res.ok) return;
+        const d = await res.json();
+        if (!d || !Object.keys(d).length) return;
+
+        // Helper: set first element by ID
+        const set = (id, val) => {
+          const el = document.getElementById(id);
+          if (el) el.textContent = val ?? 0;
+        };
+        // Helper: set Nth element matching a selector (handles duplicate IDs)
+        const setN = (id, n, val) => {
+          const els = document.querySelectorAll('[id="' + id + '"]');
+          if (els[n]) els[n].textContent = val ?? 0;
+        };
+
+        // School total (fixed at 7)
+        set('totalSchools', d.totalSchools ?? 7);
+
+        // Faculty summary
+        set('totalFaculty', d.totalFaculty ?? 0);
+        set('maleFacultyCount', d.maleFaculty ?? 0);
+        set('femaleFacultyCount', d.femaleFaculty ?? 0);
+
+        // Faculty status — facultyParttime appears twice in the HTML
+        setN('facultyParttime', 0, d.parttimeContractTotal ?? 0);
+        set('parttimeMale', d.parttimeContractMale ?? 0);
+        set('parttimeFemale', d.parttimeContractFemale ?? 0);
+        setN('facultyParttime', 1, d.parttimeAgencyTotal ?? 0);
+        set('PartimeMale', d.parttimeAgencyMale ?? 0);
+        set('PartimeFemale', d.parttimeAgencyFemale ?? 0);
+        set('facultyRegular', d.facultyRegularTotal ?? 0);
+        set('RegularMale', d.facultyRegularMale ?? 0);
+        set('RegularFemale', d.facultyRegularFemale ?? 0);
+
+        // Faculty on Leave — [0] occurrence = Leave section
+        set('facultyLeave', d.totalLeave ?? 0);
+        set('stcsOnleave', d.stcsLeaveTotal ?? 0);
+        setN('stcsMale', 0, d.stcsLeaveMale ?? 0);
+        setN('stcsFemale', 0, d.stcsLeaveFemale ?? 0);
+        setN('engStudents', 0, d.engLeaveTotal ?? 0);
+        setN('engMale', 0, d.engLeaveMale ?? 0);
+        setN('engFemale', 0, d.engLeaveFemale ?? 0);
+        setN('stedStudents', 0, d.stedLeaveTotal ?? 0);
+        setN('stedMale', 0, d.stedLeaveMale ?? 0);
+        setN('stedFemale', 0, d.stedLeaveFemale ?? 0);
+        setN('sasStudents', 0, d.sasLeaveTotal ?? 0);
+        setN('sasMale', 0, d.sasLeaveMale ?? 0);
+        setN('sasFemale', 0, d.sasLeaveFemale ?? 0);
+        setN('scjeStudents', 0, d.scjeLeaveTotal ?? 0);
+        setN('scjeMale', 0, d.scjeLeaveMale ?? 0);
+        setN('scjeFemale', 0, d.scjeLeaveFemale ?? 0);
+        setN('smeStudents', 0, d.smeLeaveTotal ?? 0);
+        setN('smeMale', 0, d.smeLeaveMale ?? 0);
+        setN('smeFemale', 0, d.smeLeaveFemale ?? 0);
+        setN('snsStudents', 0, d.snsLeaveTotal ?? 0);
+        setN('snsMale', 0, d.snsLeaveMale ?? 0);
+        setN('snsFemale', 0, d.snsLeaveFemale ?? 0);
+
+        // Students — [1] occurrence = Students section
+        set('totalStudentsCount', d.totalStudents ?? 0);
+        setN('stcsStudents', 0, d.stcsStudents ?? 0);
+        setN('stcsMale', 1, d.stcsStudentMale ?? 0);
+        setN('stcsFemale', 1, d.stcsStudentFemale ?? 0);
+        setN('engStudents', 1, d.engStudents ?? 0);
+        setN('engMale', 1, d.engStudentMale ?? 0);
+        setN('engFemale', 1, d.engStudentFemale ?? 0);
+        setN('stedStudents', 1, d.stedStudents ?? 0);
+        setN('stedMale', 1, d.stedStudentMale ?? 0);
+        setN('stedFemale', 1, d.stedStudentFemale ?? 0);
+        setN('sasStudents', 1, d.sasStudents ?? 0);
+        setN('sasMale', 1, d.sasStudentMale ?? 0);
+        setN('sasFemale', 1, d.sasStudentFemale ?? 0);
+        setN('scjeStudents', 1, d.scjeStudents ?? 0);
+        setN('scjeMale', 1, d.scjeStudentMale ?? 0);
+        setN('scjeFemale', 1, d.scjeStudentFemale ?? 0);
+        setN('smeStudents', 1, d.smeStudents ?? 0);
+        setN('smeMale', 1, d.smeStudentMale ?? 0);
+        setN('smeFemale', 1, d.smeStudentFemale ?? 0);
+        setN('snsStudents', 1, d.snsStudents ?? 0);
+        setN('snsMale', 1, d.snsStudentMale ?? 0);
+        setN('snsFemale', 1, d.snsStudentFemale ?? 0);
+
+        // Classrooms — [1] occurrence of stcsStudents, [0] of engClassroom etc.
+        set('totalClassroomsCount', d.totalClassrooms ?? 0);
+        setN('stcsStudents', 1, d.stcsClassrooms ?? 0);
+        setN('engClassroom', 0, d.engClassrooms ?? 0);
+        setN('stedClassroom', 0, d.stedClassrooms ?? 0);
+        setN('sasClassroom', 0, d.sasClassrooms ?? 0);
+        setN('scjeClassroom', 0, d.scjeClassrooms ?? 0);
+        setN('smeClassroom', 0, d.smeClassrooms ?? 0);
+        set('snhsClassroom', d.snhsClassrooms ?? 0);
+
+        // Classes — [2] occurrence of stcsStudents, [1] of engClassroom etc.
+        set('totalClassesCount', d.totalClasses ?? 0);
+        setN('stcsStudents', 2, d.stcsClasses ?? 0);
+        setN('engClassroom', 1, d.engClasses ?? 0);
+        setN('stedClassroom', 1, d.stedClasses ?? 0);
+        setN('sasClassroom', 1, d.sasClasses ?? 0);
+        setN('scjeClassroom', 1, d.scjeClasses ?? 0);
+        setN('smeClassroom', 1, d.smeClasses ?? 0);
+
+        // Submission summary (unique IDs)
+        ['stcs','eng','sas','sme','sted','scje','snhs','sms'].forEach(s => {
+          ['Grades','Syllabus','Test','Research','Total'].forEach(t => {
+            set(s + t, d[s + t] ?? 0);
+          });
+        });
+
+        // Academic analytics
+        set('Category', d.accomplishmentReports ?? 0);
+        set('accreditationStatus', d.accreditationStatus ?? 0);
+        set('budgetProposals', d.budgetProposals ?? 0);
+        set('performanceReviews', d.performanceReviews ?? 0);
+        set('curriculumRevision', d.curriculumRevision ?? 0);
+        set('professionalReviews', d.professionalReviews ?? 0);
+
+      } catch (e) {
+        console.error('Failed to load dashboard data from API:', e);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadApiData);
+  </script>
+</body>
+</html>

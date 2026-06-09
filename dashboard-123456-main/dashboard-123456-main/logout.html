@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Confirm Logout</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #002366, #0059b3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .confirm-box {
+      background: white;
+      padding: 50px;
+      width: 420px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    }
+
+    .confirm-box h2 {
+      color: #002366;
+      margin-bottom: 15px;
+    }
+
+    .confirm-box p {
+      color: gray;
+      margin-bottom: 25px;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .yes-btn {
+      background: gold;
+      color: black;
+    }
+
+    .yes-btn:hover {
+      background: orange;
+    }
+
+    .no-btn {
+      background: #ccc;
+      color: black;
+    }
+
+    .no-btn:hover {
+      background: #999;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="confirm-box">
+    <h2>Confirm Logout</h2>
+    <p>Are you sure you want to log out?</p>
+
+    <div class="btn-group">
+      <!-- YES Logout -->
+      <button class="yes-btn" onclick="logoutYes()">Yes</button>
+
+      <!-- NO Go Back -->
+      <button class="no-btn" onclick="logoutNo()">No</button>
+    </div>
+  </div>
+
+  <script>
+    // ✅ YES → Logout
+    function logoutYes() {
+      alert("You have been logged out.");
+
+      // Clear session (optional)
+      sessionStorage.clear();
+
+      // Redirect to login page
+      window.location.href = "login.html";
+    }
+
+    // ❌ NO → Return to Dashboard
+    function logoutNo() {
+      window.location.href = "index.html"; 
+    }
+  </script>
+
+</body>
+</html>

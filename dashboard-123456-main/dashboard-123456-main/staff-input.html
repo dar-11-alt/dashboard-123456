@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff Data Entry - VP Academic Affairs</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #002366, #0059b3);
+      min-height: 100vh;
+      padding-bottom: 40px;
+    }
+    .top-bar {
+      background: rgba(0,0,0,0.3);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .top-bar .title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .top-bar img {
+      height: 36px;
+      border-radius: 50%;
+    }
+    .btn-logout {
+      padding: 8px 18px;
+      background: gold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .btn-logout:hover { background: orange; }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 20px 16px;
+    }
+    .welcome-card {
+      background: white;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .welcome-card h2 { margin: 0; color: #002366; font-size: 16px; }
+    .welcome-card p { margin: 4px 0 0; color: #555; font-size: 13px; }
+    .section-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .section-card h2 {
+      margin: 0 0 14px;
+      color: #002366;
+      font-size: 15px;
+      border-bottom: 2px solid #002366;
+      padding-bottom: 8px;
+    }
+    .subsection {
+      background: #eef3ff;
+      color: #002366;
+      font-weight: bold;
+      font-size: 13px;
+      padding: 6px 10px;
+      border-radius: 5px;
+      margin: 12px 0 8px;
+    }
+    .field-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+    }
+    .field label {
+      font-size: 12px;
+      color: #444;
+      font-weight: bold;
+      margin-bottom: 3px;
+    }
+    .field input[type="number"] {
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      width: 100%;
+    }
+    .field input[type="number"]:focus {
+      border-color: #002366;
+      outline: none;
+    }
+    .save-btn {
+      width: 100%;
+      padding: 14px;
+      background: gold;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+    .save-btn:hover { background: orange; }
+    .status-msg {
+      display: none;
+      text-align: center;
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .success { background: #d4edda; color: #155724; }
+    .error { background: #f8d7da; color: #721c24; }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="title">
+      <img src="IMG/BIPSU.jpg" alt="BIPSU Logo">
+      <span>Office of the VP for Academic Affairs — Staff Data Entry</span>
+    </div>
+    <button class="btn-logout" onclick="window.location.href='logout.html'">Logout</button>
+  </div>
+
+  <div class="container">
+
+    <div class="welcome-card">
+      <div>
+        <h2>Staff Data Entry Panel</h2>
+        <p>Enter or update the dashboard statistics below and click <strong>Save Data to Dashboard</strong>.</p>
+      </div>
+      <span style="font-size:13px;color:#888;">Logged in as: <strong>Staff</strong></span>
+    </div>
+
+    <!-- Faculty Summary -->
+    <div class="section-card">
+      <h2>👨‍🏫 Faculty Summary</h2>
+      <div class="field-row">
+        <div class="field"><label>Total Faculty</label><input type="number" id="totalFaculty" min="0" value="0"></div>
+        <div class="field"><label>Male Faculty</label><input type="number" id="maleFaculty" min="0" value="0"></div>
+        <div class="field"><label>Female Faculty</label><input type="number" id="femaleFaculty" min="0" value="0"></div>
+      </div>
+
+      <div class="subsection">Part-Time Contract</div>
+      <div class="field-row">
+        <div class="field"><label>Total</label><input type="number" id="parttimeContractTotal" min="0" value="0"></div>
+        <div class="field"><label>Male</label><input type="number" id="parttimeContractMale" min="0" value="0"></div>
+        <div class="field"><label>Female</label><input type="number" id="parttimeContractFemale" min="0" value="0"></div>
+      </div>
+
+      <div class="subsection">Part-Timers with Mother Agency</div>
+      <div class="field-row">
+        <div class="field"><label>Total</label><input type="number" id="parttimeAgencyTotal" min="0" value="0"></div>
+        <div class="field"><label>Male</label><input type="number" id="parttimeAgencyMale" min="0" value="0"></div>
+        <div class="field"><label>Female</label><input type="number" id="parttimeAgencyFemale" min="0" value="0"></div>
+      </div>
+
+      <div class="subsection">Regular Faculty</div>
+      <div class="field-row">
+        <div class="field"><label>Total</label><input type="number" id="facultyRegularTotal" min="0" value="0"></div>
+        <div class="field"><label>Male</label><input type="number" id="facultyRegularMale" min="0" value="0"></div>
+        <div class="field"><label>Female</label><input type="number" id="facultyRegularFemale" min="0" value="0"></div>
+      </div>
+    </div>
+
+    <!-- Faculty on Leave -->
+    <div class="section-card">
+      <h2>🏖️ Faculty on Leave</h2>
+      <div class="field-row">
+        <div class="field"><label>Total Faculty on Leave</label><input type="number" id="totalLeave" min="0" value="0"></div>
+      </div>
+
+      <div class="subsection">STCS</div>
+      <div class="field-row">
+        <div class="field"><label>Total</label><input type="number" id="stcsLeaveTotal" min="0" value="0"></div>
+        <div class="field"><label>Male</label><input type="number" id="stcsLeaveMale" min="0" value="0"></div>
+        <div class="field"><label>Female</label><input type="number" id="stcsLeaveFemale" min="0" value="0"></div>
+      </div>
+
+      <div class="subsection">School of Engineering</div>
+      <div class="field-row">
+        <div class="field"><label>Total</label><input type="number" id="engLeaveTotal" min="0" value="0"></div>
+        <div class="field"><label>Male</label><input type="number" id="engLeaveMale" min="0" value="0"></div>
+        <div class="field"><label>Female</label><input type="number" id="engLeaveFemale" min="0" value="0"></div>
+      </div>
+
+      <div class="subsection">School of Teachers Education</div>
+      <div class="field-row">
+        <div class="field"><label>Total</label><input type="number" id="stedLeaveTotal" min="0" value="0"></div>
+        <div class="field"><label>Male</label><input type="number" id="stedLeaveMale" min="0" value="0"></div>
+        <div class="field"><label>Female</label><input type="number" id="stedLeaveFemale" min="0" value="0"></div>
+      </div>
+
+      <div class="subsection">School of Arts and Sciences</div>
+      <div class="field-row">
+        <div class="field"><label>Total</label><input type="number" id="sasLeaveTotal" min="0" value="0"></div>
+        <div class="field"><label>Male</label><input type="number" id="sasLeaveMale" min="0" value="0"></div>
+        <div class="field"><label>Female</label><input type="number" id="sasLeaveFemale" min="0" value="0"></div>
+      </div>
+
+      <div class="subsection">School of Criminal and Justice Education</div>
+      <div class="field-row">
+        <div class="field"><label>Total</label><input type="number" id="scjeLeaveTotal" min="0" value="0"></div>
+        <div class="field"><label>Male</label><input type="number" id="scjeLeaveMale" min="0" value="0"></div>
+        <div class="field"><label>Female</label><input type="number" id="scjeLeaveFemale" min="0" value="0"></div>
+      </div>
+
+      <div class="subsection">School of Management and Entrepreneurship</div>
+      <div class="field-row">
+        <div class="field"><label>Total</label><input type="number" id="smeLeaveTotal" min="0" value="0"></div>
+        <div class="field"><label>Male</label><input type="number" id="smeLeaveMale" min="0" value="0"></div>
+        <div class="field"><label>Female</label><input type="number" id="smeLeaveFemale" min="0" value="0"></div>
+      </div>
+
+      <div class="subsection">School of Nursing and Health Sciences</div>
+      <div class="field-row">
+        <div class="field"><label>Total</label><input type="number" id="snsLeaveTotal" min="0" value="0"></div>
+        <div class="field"><label>Male</label><input type="number" id="snsLeaveMale" min="0" value="0"></div>
+        <div class="field"><label>Female</label><input type="number" id="snsLeaveFemale" min="0" value="0"></div>
+      </div>
+    </div>
+
+    <!-- Students -->
+    <div class="section-card">
+      <h2>🎓 Total Number of Students</h2>
+      <div class="field-row">
+        <div class="field"><label>Total Students</label><input type="number" id="totalStudents" min="0" value="0"></div>
+      </div>
+
+      <div class="subsection">STCS</div>
+      <div class="field-row">
+        <div class="field"><label>Total</label><input type="number" id="stcsStudents" min="0" value="0"></div>
+        <div class="field"><label>Male</label><input type="number" id="stcsStudentMale" min="0" value="0"></div>
+        <div class="field"><label>Female</label><input type="number" id="stcsStudentFemale" min="0" value="0"></div>
+      </div>
+
+      <div class="subsection">School of Engineering</div>
+      <div class="field-row">
+        <div class="field"><label>Total</label><input type="number" id="engStudents" min="0" value="0"></div>
+        <div class="field"><label>Male</label><input type="number" id="engStudentMale" min="0" value="0"></div>
+        <div class="field"><label>Female</label><input type="number" id="engStudentFemale" min="0" value="0"></div>
+      </div>
+
+      <div class="subsection">School of Teachers Education</div>
+      <div class="field-row">
+        <div class="field"><label>Total</label><input type="number" id="stedStudents" min="0" value="0"></div>
+        <div class="field"><label>Male</label><input type="number" id="stedStudentMale" min="0" value="0"></div>
+        <div class="field"><label>Female</label><input type="number" id="stedStudentFemale" min="0" value="0"></div>
+      </div>
+
+      <div class="subsection">School of Arts and Sciences</div>
+      <div class="field-row">
+        <div class="field"><label>Total</label><input type="number" id="sasStudents" min="0" value="0"></div>
+        <div class="field"><label>Male</label><input type="number" id="sasStudentMale" min="0" value="0"></div>
+        <div class="field"><label>Female</label><input type="number" id="sasStudentFemale" min="0" value="0"></div>
+      </div>
+
+      <div class="subsection">School of Criminal and Justice Education</div>
+      <div class="field-row">
+        <div class="field"><label>Total</label><input type="number" id="scjeStudents" min="0" value="0"></div>
+        <div class="field"><label>Male</label><input type="number" id="scjeStudentMale" min="0" value="0"></div>
+        <div class="field"><label>Female</label><input type="number" id="scjeStudentFemale" min="0" value="0"></div>
+      </div>
+
+      <div class="subsection">School of Management and Entrepreneurship</div>
+      <div class="field-row">
+        <div class="field"><label>Total</label><input type="number" id="smeStudents" min="0" value="0"></div>
+        <div class="field"><label>Male</label><input type="number" id="smeStudentMale" min="0" value="0"></div>
+        <div class="field"><label>Female</label><input type="number" id="smeStudentFemale" min="0" value="0"></div>
+      </div>
+
+      <div class="subsection">School of Nursing and Health Sciences</div>
+      <div class="field-row">
+        <div class="field"><label>Total</label><input type="number" id="snsStudents" min="0" value="0"></div>
+        <div class="field"><label>Male</label><input type="number" id="snsStudentMale" min="0" value="0"></div>
+        <div class="field"><label>Female</label><input type="number" id="snsStudentFemale" min="0" value="0"></div>
+      </div>
+    </div>
+
+    <!-- Classrooms -->
+    <div class="section-card">
+      <h2>🏫 Total Number of Classrooms</h2>
+      <div class="field-row">
+        <div class="field"><label>Total Classrooms</label><input type="number" id="totalClassrooms" min="0" value="0"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>STCS</label><input type="number" id="stcsClassrooms" min="0" value="0"></div>
+        <div class="field"><label>Engineering</label><input type="number" id="engClassrooms" min="0" value="0"></div>
+        <div class="field"><label>STED</label><input type="number" id="stedClassrooms" min="0" value="0"></div>
+        <div class="field"><label>SAS</label><input type="number" id="sasClassrooms" min="0" value="0"></div>
+        <div class="field"><label>SCJE</label><input type="number" id="scjeClassrooms" min="0" value="0"></div>
+        <div class="field"><label>SME</label><input type="number" id="smeClassrooms" min="0" value="0"></div>
+        <div class="field"><label>SNHS</label><input type="number" id="snhsClassrooms" min="0" value="0"></div>
+      </div>
+    </div>
+
+    <!-- Classes -->
+    <div class="section-card">
+      <h2>📚 Total Number of Classes</h2>
+      <div class="field-row">
+        <div class="field"><label>Total Classes</label><input type="number" id="totalClasses" min="0" value="0"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>STCS</label><input type="number" id="stcsClasses" min="0" value="0"></div>
+        <div class="field"><label>Engineering</label><input type="number" id="engClasses" min="0" value="0"></div>
+        <div class="field"><label>STED</label><input type="number" id="stedClasses" min="0" value="0"></div>
+        <div class="field"><label>SAS</label><input type="number" id="sasClasses" min="0" value="0"></div>
+        <div class="field"><label>SCJE</label><input type="number" id="scjeClasses" min="0" value="0"></div>
+        <div class="field"><label>SME</label><input type="number" id="smeClasses" min="0" value="0"></div>
+        <div class="field"><label>SNHS</label><input type="number" id="snhsClasses" min="0" value="0"></div>
+      </div>
+    </div>
+
+    <!-- Submission Summary -->
+    <div class="section-card">
+      <h2>📋 Submission Summary per School</h2>
+
+      <div class="subsection">STCS</div>
+      <div class="field-row">
+        <div class="field"><label>Grades</label><input type="number" id="stcsGrades" min="0" value="0"></div>
+        <div class="field"><label>Syllabus</label><input type="number" id="stcsSyllabus" min="0" value="0"></div>
+        <div class="field"><label>Test</label><input type="number" id="stcsTest" min="0" value="0"></div>
+        <div class="field"><label>Research</label><input type="number" id="stcsResearch" min="0" value="0"></div>
+      </div>
+
+      <div class="subsection">Engineering</div>
+      <div class="field-row">
+        <div class="field"><label>Grades</label><input type="number" id="engGrades" min="0" value="0"></div>
+        <div class="field"><label>Syllabus</label><input type="number" id="engSyllabus" min="0" value="0"></div>
+        <div class="field"><label>Test</label><input type="number" id="engTest" min="0" value="0"></div>
+        <div class="field"><label>Research</label><input type="number" id="engResearch" min="0" value="0"></div>
+      </div>
+
+      <div class="subsection">School of Arts and Sciences</div>
+      <div class="field-row">
+        <div class="field"><label>Grades</label><input type="number" id="sasGrades" min="0" value="0"></div>
+        <div class="field"><label>Syllabus</label><input type="number" id="sasSyllabus" min="0" value="0"></div>
+        <div class="field"><label>Test</label><input type="number" id="sasTest" min="0" value="0"></div>
+        <div class="field"><label>Research</label><input type="number" id="sasResearch" min="0" value="0"></div>
+      </div>
+
+      <div class="subsection">School of Management and Entrepreneurship</div>
+      <div class="field-row">
+        <div class="field"><label>Grades</label><input type="number" id="smeGrades" min="0" value="0"></div>
+        <div class="field"><label>Syllabus</label><input type="number" id="smeSyllabus" min="0" value="0"></div>
+        <div class="field"><label>Test</label><input type="number" id="smeTest" min="0" value="0"></div>
+        <div class="field"><label>Research</label><input type="number" id="smeResearch" min="0" value="0"></div>
+      </div>
+
+      <div class="subsection">School of Teachers Education</div>
+      <div class="field-row">
+        <div class="field"><label>Grades</label><input type="number" id="stedGrades" min="0" value="0"></div>
+        <div class="field"><label>Syllabus</label><input type="number" id="stedSyllabus" min="0" value="0"></div>
+        <div class="field"><label>Test</label><input type="number" id="stedTest" min="0" value="0"></div>
+        <div class="field"><label>Research</label><input type="number" id="stedResearch" min="0" value="0"></div>
+      </div>
+
+      <div class="subsection">School of Criminal and Justice Education</div>
+      <div class="field-row">
+        <div class="field"><label>Grades</label><input type="number" id="scjeGrades" min="0" value="0"></div>
+        <div class="field"><label>Syllabus</label><input type="number" id="scjeSyllabus" min="0" value="0"></div>
+        <div class="field"><label>Test</label><input type="number" id="scjeTest" min="0" value="0"></div>
+        <div class="field"><label>Research</label><input type="number" id="scjeResearch" min="0" value="0"></div>
+      </div>
+
+      <div class="subsection">School of Nursing and Health Sciences</div>
+      <div class="field-row">
+        <div class="field"><label>Grades</label><input type="number" id="snhsGrades" min="0" value="0"></div>
+        <div class="field"><label>Syllabus</label><input type="number" id="snhsSyllabus" min="0" value="0"></div>
+        <div class="field"><label>Test</label><input type="number" id="snhsTest" min="0" value="0"></div>
+        <div class="field"><label>Research</label><input type="number" id="snhsResearch" min="0" value="0"></div>
+      </div>
+
+      <div class="subsection">School of Maritime Studies</div>
+      <div class="field-row">
+        <div class="field"><label>Grades</label><input type="number" id="smsGrades" min="0" value="0"></div>
+        <div class="field"><label>Syllabus</label><input type="number" id="smsSyllabus" min="0" value="0"></div>
+        <div class="field"><label>Test</label><input type="number" id="smsTest" min="0" value="0"></div>
+        <div class="field"><label>Research</label><input type="number" id="smsResearch" min="0" value="0"></div>
+      </div>
+    </div>
+
+    <!-- Academic Analytics -->
+    <div class="section-card">
+      <h2>📊 Academic Analytics</h2>
+      <div class="field-row">
+        <div class="field"><label>Accomplishment Reports Submitted</label><input type="number" id="accomplishmentReports" min="0" value="0"></div>
+        <div class="field"><label>Accreditation Programs Ongoing</label><input type="number" id="accreditationStatus" min="0" value="0"></div>
+        <div class="field"><label>Budget Proposals Approved</label><input type="number" id="budgetProposals" min="0" value="0"></div>
+        <div class="field"><label>Performance Reviews Completed</label><input type="number" id="performanceReviews" min="0" value="0"></div>
+        <div class="field"><label>Curriculum Revision In Progress</label><input type="number" id="curriculumRevision" min="0" value="0"></div>
+        <div class="field"><label>Professional Review Sessions Done</label><input type="number" id="professionalReviews" min="0" value="0"></div>
+      </div>
+    </div>
+
+    <!-- Save -->
+    <div class="section-card">
+      <button class="save-btn" onclick="saveData()">Save Data to Dashboard</button>
+      <div id="statusMsg" class="status-msg"></div>
+    </div>
+
+  </div>
+
+  <script>
+    if (sessionStorage.getItem('userRole') !== 'staff') {
+      window.location.href = 'login.html';
+    }
+
+
+    const FIELDS = [
+      'totalFaculty', 'maleFaculty', 'femaleFaculty',
+      'parttimeContractTotal', 'parttimeContractMale', 'parttimeContractFemale',
+      'parttimeAgencyTotal', 'parttimeAgencyMale', 'parttimeAgencyFemale',
+      'facultyRegularTotal', 'facultyRegularMale', 'facultyRegularFemale',
+      'totalLeave',
+      'stcsLeaveTotal', 'stcsLeaveMale', 'stcsLeaveFemale',
+      'engLeaveTotal', 'engLeaveMale', 'engLeaveFemale',
+      'stedLeaveTotal', 'stedLeaveMale', 'stedLeaveFemale',
+      'sasLeaveTotal', 'sasLeaveMale', 'sasLeaveFemale',
+      'scjeLeaveTotal', 'scjeLeaveMale', 'scjeLeaveFemale',
+      'smeLeaveTotal', 'smeLeaveMale', 'smeLeaveFemale',
+      'snsLeaveTotal', 'snsLeaveMale', 'snsLeaveFemale',
+      'totalStudents',
+      'stcsStudents', 'stcsStudentMale', 'stcsStudentFemale',
+      'engStudents', 'engStudentMale', 'engStudentFemale',
+      'stedStudents', 'stedStudentMale', 'stedStudentFemale',
+      'sasStudents', 'sasStudentMale', 'sasStudentFemale',
+      'scjeStudents', 'scjeStudentMale', 'scjeStudentFemale',
+      'smeStudents', 'smeStudentMale', 'smeStudentFemale',
+      'snsStudents', 'snsStudentMale', 'snsStudentFemale',
+      'totalClassrooms',
+      'stcsClassrooms', 'engClassrooms', 'stedClassrooms', 'sasClassrooms',
+      'scjeClassrooms', 'smeClassrooms', 'snhsClassrooms',
+      'totalClasses',
+      'stcsClasses', 'engClasses', 'stedClasses', 'sasClasses',
+      'scjeClasses', 'smeClasses', 'snhsClasses',
+      'stcsGrades', 'stcsSyllabus', 'stcsTest', 'stcsResearch',
+      'engGrades', 'engSyllabus', 'engTest', 'engResearch',
+      'sasGrades', 'sasSyllabus', 'sasTest', 'sasResearch',
+      'smeGrades', 'smeSyllabus', 'smeTest', 'smeResearch',
+      'stedGrades', 'stedSyllabus', 'stedTest', 'stedResearch',
+      'scjeGrades', 'scjeSyllabus', 'scjeTest', 'scjeResearch',
+      'snhsGrades', 'snhsSyllabus', 'snhsTest', 'snhsResearch',
+      'smsGrades', 'smsSyllabus', 'smsTest', 'smsResearch',
+      'accomplishmentReports', 'accreditationStatus', 'budgetProposals',
+      'performanceReviews', 'curriculumRevision', 'professionalReviews'
+    ];
+
+    async function loadData() {
+      try {
+        const res = await fetch(API);
+        if (!res.ok) return;
+        const data = await res.json();
+        FIELDS.forEach(field => {
+          const el = document.getElementById(field);
+          if (el && data[field] !== undefined) el.value = data[field];
+        });
+      } catch (e) {
+        console.error('Failed to load data:', e);
+      }
+    }
+
+    async function saveData() {
+      const data = {};
+      FIELDS.forEach(field => {
+        const el = document.getElementById(field);
+        if (el) data[field] = parseInt(el.value) || 0;
+      });
+
+      // Auto-calculate submission totals
+      ['stcs', 'eng', 'sas', 'sme', 'sted', 'scje', 'snhs', 'sms'].forEach(school => {
+        data[school + 'Total'] =
+          (data[school + 'Grades'] || 0) +
+          (data[school + 'Syllabus'] || 0) +
+          (data[school + 'Test'] || 0) +
+          (data[school + 'Research'] || 0);
+      });
+
+      const msg = document.getElementById('statusMsg');
+      try {
+        const res = await fetch(API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (!res.ok) {
+          throw new Error('Server error: ' + res.status);
+        }
+
+        const result = await res.json();
+
+        msg.style.display = 'block';
+        if (result.success) {
+          msg.textContent = 'Data saved successfully! The dashboard has been updated.';
+          msg.className = 'status-msg success';
+        } else {
+          msg.textContent = 'Error saving data. Please try again.';
+          msg.className = 'status-msg error';
+        }
+      } catch (e) {
+        msg.style.display = 'block';
+        msg.textContent = 'Error saving data. Please try again later.';
+        msg.className = 'status-msg error';
+      }
+
+      setTimeout(() => { msg.style.display = 'none'; }, 5000);
+    }
+
+    loadData();
+  </script>
+
+<script type="module" src="firebase-config.js"></script>
+<script type="module" src="staff-firebase.js"></script>
+
+</body>
+</html>
